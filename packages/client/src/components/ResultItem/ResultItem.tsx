@@ -1,6 +1,6 @@
 import React from "react";
 import { Hotel, Country, City } from "../../types/models";
-import { getIconClass } from "../../utils/iconHelper";
+import { getIconClass, IconKeys } from "../../utils/iconHelper";
 import { Link } from "react-router-dom";
 import "./ResultItem.css";
 
@@ -10,7 +10,7 @@ type Item = Hotel | Country | City;
 // Defining the props for the ResultItem component
 interface ResultItemProps {
   item: Item; // The item to display (Hotel, Country, or City)
-  type: string; // The type of the item to determine rendering
+  type: IconKeys; // The type of the item to determine rendering
 }
 
 // ResultItem component
@@ -21,13 +21,12 @@ const ResultItem: React.FC<ResultItemProps> = React.memo(({ item, type }) => {
         to={`/${type}/${item._id}`} // Dynamic routing based on type and item ID
         className="dropdown-item"
         tabIndex={0} // Makes the link focusable
-        aria-label={`View details for ${
-          type === "hotels"
-            ? (item as Hotel).hotel_name
-            : type === "countries"
+        aria-label={`View details for ${type === "hotels"
+          ? (item as Hotel).hotel_name
+          : type === "countries"
             ? (item as Country).country
             : (item as City).name
-        }`}
+          }`}
       >
         <i
           className={`fa ${getIconClass(type)} mr-2`} // Icon class based on item type
@@ -37,8 +36,8 @@ const ResultItem: React.FC<ResultItemProps> = React.memo(({ item, type }) => {
         {type === "hotels"
           ? (item as Hotel).hotel_name
           : type === "countries"
-          ? (item as Country).country
-          : (item as City).name}
+            ? (item as Country).country
+            : (item as City).name}
       </Link>
       <hr className="divider" />
     </li>

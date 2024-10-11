@@ -2,6 +2,7 @@ import React from "react";
 import { Hotel, Country, City } from "../../types/models";
 import ResultItem from "../ResultItem/ResultItem";
 import "./ResultList.css";
+import { IconKeys } from "../../utils/iconHelper";
 
 // Defining a union type for the items that can be hotels, countries, or cities
 type Item = Hotel | Country | City;
@@ -35,7 +36,7 @@ const ResultsListComponent: React.FC<ResultsListProps> = ({
   if (isError) return <p>Error fetching data.</p>;
 
   // Function to render the list of items based on type
-  const renderList = (items: Item[], type: string) => {
+  const renderList = (items: Item[], type: IconKeys) => {
     // Check if there are items to display
     if (items.length) {
       return items.map((item) => (
